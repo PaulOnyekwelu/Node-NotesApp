@@ -1,6 +1,7 @@
 import http from 'http';
 import { default as express } from 'express';
 import { default as path } from 'path';
+import hbs from 'hbs';
 import cookieParser from 'cookie-parser';
 import { default as logger} from 'morgan';
 
@@ -16,6 +17,8 @@ export const NotesStore = new InMemoryNotesStore();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, 'partials'));
+
 
 app.use(logger('dev'));
 app.use(express.json());
