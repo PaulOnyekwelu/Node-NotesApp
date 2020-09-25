@@ -1,39 +1,16 @@
-#!/usr/bin/env node
+import {default as createError} from 'http-errors';
+import { server, port } from "./app.mjs";
+import {default as debug } from 'debug';
 
-/**
- * Module dependencies.
- */
 
-var app = require('../app');
-var debug = require('debug')('noteapp:server');
-var http = require('http');
+const logDebug = debug('noteApp:server');
 
-/**
- * Get port from environment and store in Express.
- */
-
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Create HTTP server.
- */
-
-var server = http.createServer(app);
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+export function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -53,7 +30,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+export function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -81,10 +58,25 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+export function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  logDebug('Listening on ' + bind);
 }
+
+export function handle404(req, res, next) {
+  next(createError(404));
+}
+
+export function basicErrorHandler (err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+}
+
