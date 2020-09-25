@@ -9,7 +9,6 @@ const logDebug = debug('noteApp:server');
 /**
  * Normalize a port into a number, string, or false.
  */
-
 export function normalizePort(val) {
   var port = parseInt(val, 10);
 
@@ -29,7 +28,6 @@ export function normalizePort(val) {
 /**
  * Event listener for HTTP server "error" event.
  */
-
 export function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
@@ -57,7 +55,6 @@ export function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 export function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
@@ -79,4 +76,3 @@ export function basicErrorHandler (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 }
-
