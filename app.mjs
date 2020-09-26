@@ -8,8 +8,8 @@ import { default as logger} from 'morgan';
 import { __dirname } from "./approotdir.mjs";
 import { normalizePort, onError, onListening, handle404, basicErrorHandler } from "./appsupport.mjs";
 import { InMemoryNotesStore } from "./models/notes-memory.mjs";
-import { default as indexRouter } from "./routes/index.mjs";
-
+import { router as indexRouter } from "./routes/index.mjs";
+import { router as notesRouter } from './routes/notes.mjs';
 
 const app = express();
 export const NotesStore = new InMemoryNotesStore();
@@ -27,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/notes', NotesRouter);
+app.use('/notes', notesRouter);
 
 // catch 404 and forward to error handler
 app.use(handle404);

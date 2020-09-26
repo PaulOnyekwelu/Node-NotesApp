@@ -33,16 +33,3 @@ export class InMemoryNotesStore extends AbstractNotesStore {
         return notes.length;
     }
 }
-
-
-// const note = new InMemoryNotesStore();
-// (async() => {
-//     const note1 = await note.create('34dfe', 'this is the title', 'wow this is the body');
-//     const note2 = await note.create('2222', 'this is the title2', 'wow this is the body2');
-//     const noteList = [note1, note2];
-//     for(let note of noteList){
-//         console.log(typeof note);
-//         console.log(note);
-//     }
-// })()
-
