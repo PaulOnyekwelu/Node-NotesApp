@@ -3,16 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env DEBUG=noteApp:* nodemon ./app.mjs"
+    "start": "cross-env DEBUG=noteApp:* nodemon ./app.mjs",
+    "server1": "cross-env DEBUG=noteApp:* PORT=3001 nodemon ./app.mjs",
+    "server2": "cross-env DEBUG=noteApp:* PORT=3002 nodemon ./app.mjs"
   },
   "dependencies": {
+    "bootstrap": "^4.5.2",
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.2",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "feather-icons": "^4.25.0",
     "hbs": "^4.1.1",
     "http-errors": "~1.6.3",
+    "jquery": "^3.5.1",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "popper.js": "^1.16.1",
+    "rotating-file-stream": "^2.1.3"
   }
 }

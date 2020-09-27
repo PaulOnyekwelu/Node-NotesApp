@@ -3,33 +3,33 @@ import { Note, AbstractNotesStore } from './Notes.mjs';
 const notes = [];
 
 export class InMemoryNotesStore extends AbstractNotesStore {
-    async close () {};
+    close () {};
 
-    async update (key, title, body) {
+    update (key, title, body) {
         notes[key] = new Note(key, title, body);
         return notes[key];
     } 
 
-    async create(key, title, body) {
+    create(key, title, body) {
         notes[key] = new Note(key, title, body);
         return notes[key];
     }
 
-    async read (key) {
+    read (key) {
         if(notes[key]) return notes[key];
         else throw Error(`note ${key} does not exist`);
     }
 
-    async destroy (key) {
+    destroy (key) {
         if(notes[key]) delete notes[key];
         else throw Error(`note ${key} does not exist`);
     }
 
-    async keyList () {
+    keyList () {
         return Object.keys(notes);
     }
     
-    async count () {
+    count () {
         return notes.length;
     }
 }

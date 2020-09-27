@@ -1,10 +1,11 @@
 import {default as createError} from 'http-errors';
 import { server, port } from "./app.mjs";
-import {default as debug } from 'debug';
+import {default as DBG } from 'debug';
+import {default as util} from 'util';
 
 
-const logDebug = debug('noteApp:server');
-
+const debug = DBG('noteApp:debug');
+const debugError = DBG('noteApp:Error')
 
 /**
  * Normalize a port into a number, string, or false.
@@ -29,6 +30,7 @@ export function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 export function onError(error) {
+  debugError(error)
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -60,7 +62,7 @@ export function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  logDebug('Listening on ' + bind);
+  debug('Listening on ' + bind);
 }
 
 export function handle404(req, res, next) {
@@ -76,3 +78,12 @@ export function basicErrorHandler (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 }
+
+// handling uncaughtExceptions and unhandledRejections
+process.on('uncaughtException', (err) => {
+  console.error(`UncaughtException, I ve crashed!! - ${err.stack || err}`)
+})
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error(`UnhandledRejection at ${util.inspect(p)}, reason: ${reason}`)
+})
