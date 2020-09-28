@@ -9,14 +9,19 @@ import rfs from 'rotating-file-stream';
 
 import { __dirname } from "./approotdir.mjs";
 import { normalizePort, onError, onListening, handle404, basicErrorHandler } from "./appsupport.mjs";
-import { default as InMemoryNotesStore } from "./models/notes-memory.mjs";
-import { default as FsNotesStore } from "./models/notes-fs.mjs";
+// import { default as InMemoryNotesStore } from "./models/notes-memory.mjs";
+// import { default as FsNotesStore } from "./models/notes-fs.mjs";
+import { storeModel as NotesStoreModel } from './models/notes-store.mjs'
 import { router as indexRouter } from "./routes/index.mjs";
 import { router as notesRouter } from './routes/notes.mjs';
 
 const app = express();
 // export const NotesStore = new InMemoryNotesStore();
-export const NotesStore = new FsNotesStore();
+// export const NotesStore = new FsNotesStore();
+
+NotesStoreModel(process.env.NOTES_MODEL ? process.env.NOTES_MODEL : 'memory')
+    .then(store => {})
+    .catch(error => onError({ code: 'ENOTESSTORE', error}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,7 +30,7 @@ hbs.registerPartials(path.join(__dirname, 'partials'));
 
 
 // creating a write stream
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flag: 'a'})
+// const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flag: 'a'})
 app.use(logger(process.env.REQUEST_LOG_FORMAT || 'dev', {
     stream: process.env.REQUEST_LOG_FILE ? 
         rfs.createStream(process.env.REQUEST_LOG_FILE, {

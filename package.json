@@ -3,12 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "cross-env DEBUG=noteApp:* nodemon ./app.mjs",
-    "server1": "cross-env DEBUG=noteApp:* PORT=3001 nodemon ./app.mjs",
-    "server2": "cross-env DEBUG=noteApp:* PORT=3002 nodemon ./app.mjs"
+    "fs-server1": "cross-env NOTES_MODEL=fs REQUEST_LOG_FILE=access.log DEBUG=noteApp:* nodemon ./app.mjs",
+    "fs-server2": "cross-env NOTES_MODEL=fs REQUEST_LOG_FILE=access.log DEBUG=noteApp:* PORT=3001 nodemon ./app.mjs",
+    "fs-server3": "cross-env NOTES_MODEL=fs REQUEST_LOG_FILE=access.log DEBUG=noteApp:* PORT=3002 nodemon ./app.mjs",
+    "start": "concurrently 'npm run fs-server1' 'npm run fs-server2' 'fs-npm run server3'"
   },
   "dependencies": {
     "bootstrap": "^4.5.2",
+    "concurrently": "^5.3.0",
     "cookie-parser": "~1.4.4",
     "cross-env": "^7.0.2",
     "debug": "~2.6.9",

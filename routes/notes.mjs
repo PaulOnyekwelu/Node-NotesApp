@@ -1,5 +1,5 @@
 import express from "express";
-import { NotesStore as notes } from "../app.mjs";
+import { NotesStore as notes } from "../models/notes-store.mjs";
 import { v4 as uuid, v4} from 'uuid';
 
 

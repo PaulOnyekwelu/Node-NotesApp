@@ -49,6 +49,10 @@ export function onError(error) {
       console.error(bind + ' is already in use');
       process.exit(1);
       break;
+    case 'ENOTESSTORE':
+        console.error('notes data store initialization failure because', error.error);
+        process.exit(1);
+        break;
     default:
       throw error;
   }
