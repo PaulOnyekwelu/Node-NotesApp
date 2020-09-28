@@ -9,7 +9,7 @@ router.get('/', async(req, res, next) => {
     // await notes.create('fsdif334', 'first post', 'this is nubmer 1');
     // await notes.create('secs367', 'second post', 'this is nubmer 2');
     const keyList = await notes.keyList();
-    const keyPromises = keyList.map(key => notes.read(key));
+    const keyPromises = keyList.map(async key => await notes.read(key));
     const noteList = await Promise.all(keyPromises);
     res.render('index', { title: 'HomePage', noteList });
     

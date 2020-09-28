@@ -9,8 +9,8 @@ import rfs from 'rotating-file-stream';
 
 import { __dirname } from "./approotdir.mjs";
 import { normalizePort, onError, onListening, handle404, basicErrorHandler } from "./appsupport.mjs";
-import { InMemoryNotesStore } from "./models/notes-memory.mjs";
-import { FsNotesStore } from "./models/notes-fm.mjs";
+import { default as InMemoryNotesStore } from "./models/notes-memory.mjs";
+import { default as FsNotesStore } from "./models/notes-fs.mjs";
 import { router as indexRouter } from "./routes/index.mjs";
 import { router as notesRouter } from './routes/notes.mjs';
 

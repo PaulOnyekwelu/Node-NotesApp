@@ -1,5 +1,6 @@
 import express from "express";
 import { NotesStore as notes } from "../app.mjs";
+import { v4 as uuid, v4} from 'uuid';
 
 
 
@@ -9,7 +10,7 @@ router.get("/add", async (req, res, next) => {
 	res.render("noteEdit", {
 		title: "Add a Note",
 		docreate: true,
-		notekey: "",
+		notekey: v4(),
 		note: undefined,
 	});
 });
@@ -59,6 +60,7 @@ router.get('/destroy', async(req, res, next) => {
 
 router.post("/save", async (req, res, next) => {
 	const { docreate, notekey, title, body } = req.body;
+	console.log(req.body)
 	try {
 		let note;
 		if(!notekey) throw Error('all fields are required');
