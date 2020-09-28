@@ -6,7 +6,8 @@
     "fs-server1": "cross-env NOTES_MODEL=fs REQUEST_LOG_FILE=access.log DEBUG=noteApp:* nodemon ./app.mjs",
     "fs-server2": "cross-env NOTES_MODEL=fs REQUEST_LOG_FILE=access.log DEBUG=noteApp:* PORT=3001 nodemon ./app.mjs",
     "fs-server3": "cross-env NOTES_MODEL=fs REQUEST_LOG_FILE=access.log DEBUG=noteApp:* PORT=3002 nodemon ./app.mjs",
-    "start": "concurrently 'npm run fs-server1' 'npm run fs-server2' 'fs-npm run server3'"
+    "start": "concurrently 'npm run fs-server1' 'npm run fs-server2' 'fs-npm run server3'",
+    "sequelize-start": "cross-env SEQUELIZE_CONNECT=./models/sequelize-sqlite.yaml NOTES_MODEL=sequelize REQUEST_LOG_FILE=access.log DEBUG=noteApp:* nodemon ./app.mjs"
   },
   "dependencies": {
     "bootstrap": "^4.5.2",

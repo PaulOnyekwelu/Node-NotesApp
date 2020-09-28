@@ -69,7 +69,7 @@ router.post("/save", async (req, res, next) => {
 		} else if (docreate === "update") {
 			note = await notes.update(notekey, title, body);
 		}
-		res.redirect(`/notes/view?key=${notekey}`);
+		res.redirect(`/notes/view?key=${note.key}`);
 	} catch (err) {
 		next(err);
 	}
